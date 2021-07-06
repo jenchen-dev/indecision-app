@@ -10,10 +10,21 @@ class IndecisionApp extends React.Component {
         };
     }
     componentDidMount() { // fire once component mounted to DOM: lifecycle method (only access in class components)
-        console.log('fetching data');
+        try {
+            const json = localStorage.getItem('options');
+            const optionList = JSON.parse(json);
+            if (optionList) {
+                this.setState(() => ({ optionList }));
+            }
+        } catch(err) {
+            // Do nothing at all
+        }
     }
     componentDidUpdate(prevProps, prevState) { // only fire once props or state changed
-        console.log('saving data');
+        if (prevState.optionList.length !== this.state.optionList.length) {
+            const json = JSON.stringify(this.state.optionList);
+            localStorage.setItem('options', json);
+        }
     }
     componentWillUnmount() { // fire before component goes away
         console.log('componentWillUnmount');
@@ -91,6 +102,7 @@ const OptionList = (props) => {
     return (
         <div>
             <button onClick={props.handleDeleteAll}>Remove All</button>
+            {props.optionList.length === 0 && <p>Please add an option to get started!</p>}
             {
                 props.optionList.map((option) => (
                     <Option 
@@ -127,7 +139,10 @@ class AddOption extends React.Component {
         e.preventDefault();
         const newOption = e.target.elements.optionInput.value.trim();
         const error = this.props.addNewOption(newOption);
-        this.setState(() => ({ error: error }));
+        this.setState(() => ({ error }));
+        if (!error) {
+            e.target.elements.optionInput.value = '';
+        }
     }
     render() { // "handleAddOption" is not from parent class so use "this." instead of "this.props"
         return (
