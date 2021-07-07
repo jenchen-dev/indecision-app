@@ -6,7 +6,7 @@ class IndecisionApp extends React.Component {
         this.handlePick = this.handlePick.bind(this);
         this.addNewOption = this.addNewOption.bind(this);
         this.state = {
-            optionList: props.optionList
+            optionList: []
         };
     }
     componentDidMount() { // fire once component mounted to DOM: lifecycle method (only access in class components)
@@ -70,10 +70,6 @@ class IndecisionApp extends React.Component {
         );
     }
 }
-
-IndecisionApp.defaultProps = {
-    optionList: []
-};
 
 const Header = (props) => {
     return (
@@ -157,4 +153,4 @@ class AddOption extends React.Component {
     }
 }
 
-ReactDOM.render(<IndecisionApp optionList={['Washing dishes', 'Shopping']} />, document.getElementById('app'));
+ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
