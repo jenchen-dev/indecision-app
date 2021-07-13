@@ -3,11 +3,16 @@ import Header from './Header';
 import Action from './Action';
 import AddOption from './AddOption';
 import OptionList from './OptionList';
+import OptionModal from './OptionModal';
 
-export default class IndecisionApp extends React.Component {
+export default class IndecisionApp extends React.Component { // only class component can use inline "export default"
     state = {
-        optionList: []
+        optionList: [],
+        selectedOption: undefined
     }
+    handleModalClose = () => { // use arrow function so no need manully binding and constructor
+        this.setState(() => ({ selectedOption: undefined }))
+    };
     handleDeleteAll = () => {
         this.setState(() => ({ optionList: [] }));
     };
@@ -19,7 +24,7 @@ export default class IndecisionApp extends React.Component {
     handlePick = () => {
         const randomNum = Math.floor(Math.random() * this.state.optionList.length);
         const getOptionResult = this.state.optionList[randomNum];
-        alert(getOptionResult);
+        this.setState(() => ({ selectedOption: getOptionResult })); 
     };
     addNewOption = (option) => {
         if (!option) {
@@ -65,6 +70,10 @@ export default class IndecisionApp extends React.Component {
                     handleDeleteEach={this.handleDeleteEach}
                 />
                 <AddOption addNewOption={this.addNewOption}/>
+                <OptionModal 
+                    selectedOption={this.state.selectedOption}
+                    handleModalClose={this.handleModalClose}
+                />
             </div>
         );
     }
