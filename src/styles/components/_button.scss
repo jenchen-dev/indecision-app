@@ -15,6 +15,10 @@
     opacity: .5;
 }
 
+.big-button:hover:enabled {
+    transform: scale(1.02);
+}
+
 .button {
     background: $purple;
     border: none;
@@ -23,6 +27,14 @@
     color: floralwhite;
     font-weight: 500;
     padding: $s-size;
+}
+
+.button:hover {
+    opacity: .7;
+}
+
+.button:active {
+    transform: scale(0.9);
 }
 
 .button--link {
