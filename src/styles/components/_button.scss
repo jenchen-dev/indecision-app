@@ -6,7 +6,7 @@
     color: floralwhite;
     font-weight: bold;
     font-size: 2.5rem;
-    margin-bottom: $xl-size;
+    margin-bottom: $l-size;
     padding: 1rem;
     width: 100%;
 }
@@ -17,6 +17,12 @@
 
 .big-button:hover:enabled {
     transform: scale(1.02);
+}
+
+@media (max-width: $mobile-breakpoint) {
+    .big-button {
+        margin-bottom: $m-size;
+    }
 }
 
 .button {
@@ -34,7 +40,7 @@
 }
 
 .button:active {
-    transform: scale(0.9);
+    transform: scale(0.95);
 }
 
 .button--link {
